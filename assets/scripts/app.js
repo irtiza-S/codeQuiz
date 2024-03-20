@@ -115,7 +115,9 @@ function highScoresStorage() {
 
 
 // click event for starting quiz
-startBtn.onclick = startQuiz
+startBtn.onclick = (e) => {
+    console.log(e.target)
+}
 
 // click event for submitting highscores
 submitBtn.onclick = highScoresStorage
