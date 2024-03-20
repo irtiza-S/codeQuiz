@@ -5,6 +5,9 @@
 
 Welcome to our Web Development Quiz, a dynamic and engaging web application designed to test and enhance your knowledge of web development concepts. Developed using HTML, CSS, and JavaScript, our quiz offers an immersive experience for users seeking to challenge themselves and solidify their understanding of key web development principles.
 
+![08-web-apis-challenge-demo](https://github.com/irtiza-S/codeQuiz/assets/61486852/4ecc1e27-c96e-4cc2-8b9e-a429a730a832)
+
+
 ## Key Features
 
 Timed Code Quiz: Our quiz challenges users to answer a series of web development-related questions within a specified time limit. With each question, users must select the correct answer from multiple options, testing their knowledge under pressure.
