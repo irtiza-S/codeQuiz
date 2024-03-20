@@ -1,4 +1,6 @@
-import questions from './questions'
+import questions from './questions.js'
+
+console.log(questions)
 
 //Reference HTML DOM elements
 const questionsEl = document.getElementById("questions")
