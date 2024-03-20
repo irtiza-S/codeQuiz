@@ -6,7 +6,7 @@ let timerEl = document.getElementById("time")
 let choicesEl = document.getElementById("choices")
 let submitBtn = document.getElementById("submit")
 let startBtn = document.getElementById("start")
-let nameEl = document.getElementById("initials")
+let initialsEl = document.getElementById("initials")
 let feedbackEl = document.getElementById("feedback")
 let reStartBtn = document.querySelector("#restart");
 
@@ -32,6 +32,7 @@ function getQuestion() {
 	let promptElement = document.getElementById("question-title")
 	promptElement.textContent = currentQuestion.prompt
 	choicesEl.innerHTML = ""
+    // render the options for each available answer
 	currentQuestion.options.forEach(function (choice, i) {
 		let choiceBtn =	document.createElement("button")
 		choiceBtn.setAttribute("value", choice)
@@ -53,16 +54,12 @@ function endQuiz() {
 }
 
 
-
-
-
-startBtn.onclick = startQuiz
-
 // Check whether answers are correct, if not - decrease the time
-
 function questionClick() {
+    //if the choice picked is incorrect - deduct time and prompt the user they picked incorrect answer
 	if (this.value !== questions[currentQuestionIndex].answer) {
 		time -= 10;
+        //prevent timer from going below 0
 		if (time < 0) {
 			time = 0
 		}
@@ -79,23 +76,16 @@ function questionClick() {
 	setTimeout(function () {
 		feedbackEl.setAttribute("class", "feedback hide");
 	}, 2000);
+
     // move onto next question when the user has been indicated whether answer is correct or not 
 	currentQuestionIndex++;
     
     // if we have finished/reached the last question - then endQuiz - otherwise move onto next question
-	if (currentQuestionIndex === questions.length) {
-		endQuiz();
-	} else {
-		getQuestion();
-	}
+	currentQuestionIndex === questions.length ? endQuiz() : getQuestion()
 }
 
 
-
-
-
 // End quiz if timer reaches 0
-
 function timeKeeper() {
 	time--;
 	timerEl.textContent = time;
@@ -104,50 +94,32 @@ function timeKeeper() {
 	}
 }
 
-// Save score in local storage
-// Along with users' name
 
-function saveHighscore() {
-	let name = nameEl.value.trim();
-	if (name !== "") {
-		let highscores =
-			JSON.parse(
-				window.localStorage.getItem(
-					"highscores"
-				)
-			) || [];
+
+// save scores in local storage
+function highScoresStorage() {
+	let initials = initialsEl.value.trim()
+	if (initials !== "") {
+		let highscores = JSON.parse(window.localStorage.getItem("highscores")) || []
 		let newScore = {
 			score: time,
-			name: name,
-		};
-		highscores.push(newScore);
-		window.localStorage.setItem(
-			"highscores",
-			JSON.stringify(highscores)
-		);
-		alert(
-			"Your Score has been Submitted"
-		);
+			initials: initials,
+		}
+		highscores.push(newScore)
+		window.localStorage.setItem("highscores", JSON.stringify(highscores))
+		alert("Your score has been added to highscores")
 	}
 }
 
-// Save users' score after pressing enter
 
-function checkForEnter(event) {
-	if (event.key === "Enter") {
-		saveHighscore();
-		alert(
-			"Your Score has been Submitted"
-		);
-	}
-}
-nameEl.onkeyup = checkForEnter;
 
-// Save users' score after clicking submit
 
-submitBtn.onclick = saveHighscore;
+// click event for starting quiz
+startBtn.onclick = startQuiz
 
-// Start quiz after clicking start quiz
+// click event for submitting highscores
+submitBtn.onclick = highScoresStorage
+
 
 
 
